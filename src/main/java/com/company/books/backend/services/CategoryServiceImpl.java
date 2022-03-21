@@ -23,7 +23,7 @@ public class CategoryServiceImpl implements ICategoryService {
 	
 	@Override
 	@Transactional(readOnly = true)
-	public Category searchCategory() {
+	public CategoryResponseRest searchCategory() {
 		log.info("Inicio de búsqueda de ctaegoria");
 		CategoryResponseRest response =  new CategoryResponseRest();
 		try {
@@ -37,7 +37,7 @@ public class CategoryServiceImpl implements ICategoryService {
 			ex.printStackTrace();
 			
 		}
-		return null;
+		return response;
 	}
 	
 }

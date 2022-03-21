@@ -1,9 +1,9 @@
 package com.company.books.backend.services;
 
-import com.company.books.backend.model.Category;
+import com.company.books.backend.response.CategoryResponseRest;
 
 public interface ICategoryService {
 
-	public Category searchCategory();
+	public CategoryResponseRest searchCategory();
 	
 }

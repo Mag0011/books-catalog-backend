@@ -6,6 +6,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,7 +25,7 @@ public class CategoryServiceImpl implements ICategoryService {
 	
 	@Override
 	@Transactional(readOnly = true)
-	public CategoryResponseRest searchCategory() {
+	public ResponseEntity<CategoryResponseRest> searchCategory() {
 		log.info("Inicio de búsqueda de ctaegoria");
 		CategoryResponseRest response =  new CategoryResponseRest();
 		try {
@@ -32,12 +34,13 @@ public class CategoryServiceImpl implements ICategoryService {
 			response.setMetadata("Response", "200", "Successful response");
 		}catch(Exception ex) {
 			ex.printStackTrace();
-			response.setMetadata("Response", "-1", "Response Failed");
+			response.setMetadata("Response", "-1", "Error when category was consulted");
 			log.error("Error when category was consulted", ex.getMessage());
 			ex.printStackTrace();
+			return new ResponseEntity<CategoryResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR); // 500
 			
 		}
-		return response;
+		return new ResponseEntity<CategoryResponseRest>(response, HttpStatus.OK); // 200
 	}
 	
 }

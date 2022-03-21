@@ -1,6 +1,7 @@
 package com.company.books.backend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,8 +17,8 @@ public class CategoryRestController {
 	private ICategoryService categoryService;
 	
 	@GetMapping("/categories")
-	public CategoryResponseRest getCategory() {
-		CategoryResponseRest response = categoryService.searchCategory();
+	public ResponseEntity<CategoryResponseRest> getCategory() {
+		ResponseEntity<CategoryResponseRest> response = categoryService.searchCategory();
 		return response;
 	}
 	

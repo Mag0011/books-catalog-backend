@@ -83,15 +83,50 @@ public class CategoryServiceImpl implements ICategoryService {
 				response.getCategoryResponse().setCategory(list);
 				response.setMetadata("Response", "200", "Succesful creation");
 			}else {
-				log.error("Entry could be saved");
+				log.error("Entry couldn´t be saved");
 				response.setMetadata("Response", "-1", "Failed in creation");
-				return new ResponseEntity<CategoryResponseRest>(response, HttpStatus.BAD_REQUEST); // 200
+				return new ResponseEntity<CategoryResponseRest>(response, HttpStatus.BAD_REQUEST); // 400
 			}
 			
 		}catch(Exception ex) {
 			ex.printStackTrace();
 			response.setMetadata("Response", "-1", "Error in category creation");
 			log.error("Error when category was consulted", ex.getMessage());
+			ex.printStackTrace();
+			return new ResponseEntity<CategoryResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR); // 500
+			
+		}
+		return new ResponseEntity<CategoryResponseRest>(response, HttpStatus.OK); // 200
+	}
+
+	@Override
+	@Transactional
+	public ResponseEntity<CategoryResponseRest> updateCategory(Category category, Long id) {
+		log.info("Updating a category");
+		CategoryResponseRest response =  new CategoryResponseRest();
+		List<Category> list = new ArrayList<>();
+		try {
+			Optional<Category> categorySearched =  categoryDao.findById(id);
+			if(categorySearched.isPresent()) {
+				categorySearched.get().setName(category.getName());
+				categorySearched.get().setDescription(category.getDescription());
+				Category categoryUpdated = categoryDao.save(categorySearched.get());
+				if(categoryUpdated != null) {
+					log.info("Registry updated");
+					list.add(categoryUpdated);
+					response.getCategoryResponse().setCategory(list);
+					response.setMetadata("Response", "200", "Succesful update");
+				}else {
+					log.error("Entry couldn´t be updated");
+					response.setMetadata("Response", "-1", "Failed in creation");
+					return new ResponseEntity<CategoryResponseRest>(response, HttpStatus.BAD_REQUEST); // 200
+				}
+			}
+			
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			response.setMetadata("Response", "-1", "Error in category creation");
+			log.error("Error when category was updated", ex.getMessage());
 			ex.printStackTrace();
 			return new ResponseEntity<CategoryResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR); // 500
 			

@@ -115,7 +115,7 @@ public class CategoryServiceImpl implements ICategoryService {
 					log.info("Registry updated");
 					list.add(categoryUpdated);
 					response.getCategoryResponse().setCategory(list);
-					response.setMetadata("Response", "200", "Succesful update");
+					response.setMetadata("Response OK", "200", "Succesful update");
 				}else {
 					log.error("Entry couldn´t be updated");
 					response.setMetadata("Response", "-1", "Failed in creation");
@@ -127,6 +127,25 @@ public class CategoryServiceImpl implements ICategoryService {
 			ex.printStackTrace();
 			response.setMetadata("Response", "-1", "Error in category creation");
 			log.error("Error when category was updated", ex.getMessage());
+			ex.printStackTrace();
+			return new ResponseEntity<CategoryResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR); // 500
+			
+		}
+		return new ResponseEntity<CategoryResponseRest>(response, HttpStatus.OK); // 200
+	}
+
+	@Override
+	public ResponseEntity<CategoryResponseRest> deleteCategory(Long id) {
+		log.info("Deleting a category");
+		CategoryResponseRest response =  new CategoryResponseRest();
+		List<Category> list = new ArrayList<>();
+		try {
+			categoryDao.deleteById(id);
+			response.setMetadata("Response OK", "200", "Succesful elimination");
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			response.setMetadata("Response", "-1", "Error in category creation");
+			log.error("Error when category was consulted", ex.getMessage());
 			ex.printStackTrace();
 			return new ResponseEntity<CategoryResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR); // 500
 			

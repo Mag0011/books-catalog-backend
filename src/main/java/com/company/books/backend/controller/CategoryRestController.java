@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.company.books.backend.model.Category;
-import com.company.books.backend.response.CategoryResponseRest;
+import com.company.books.backend.response.ModelResponseRest;
 import com.company.books.backend.services.ICategoryService;
 
 @RestController
@@ -23,32 +23,32 @@ public class CategoryRestController {
 	private ICategoryService categoryService;
 	
 	@GetMapping("/categories")
-	public ResponseEntity<CategoryResponseRest> getCategory() {
-		ResponseEntity<CategoryResponseRest> response = categoryService.searchCategory();
+	public ResponseEntity<ModelResponseRest<Category>> getCategory() {
+		ResponseEntity<ModelResponseRest<Category>> response = categoryService.searchCategory();
 		return response;
 	}
 	
 	@GetMapping("/categories/{id}")
-	public ResponseEntity<CategoryResponseRest> getCategoryById(@PathVariable(name = "id") Long id) {
-		ResponseEntity<CategoryResponseRest> response = categoryService.getCategoryById(id);
+	public ResponseEntity<ModelResponseRest<Category>> getCategoryById(@PathVariable(name = "id") Long id) {
+		ResponseEntity<ModelResponseRest<Category>> response = categoryService.getCategoryById(id);
 		return response;
 	}
 	
 	@PostMapping("/categories")
-	public ResponseEntity<CategoryResponseRest> createCategory(@RequestBody Category category) {
-		ResponseEntity<CategoryResponseRest> response = categoryService.createCategory(category);
+	public ResponseEntity<ModelResponseRest<Category>> createCategory(@RequestBody Category category) {
+		ResponseEntity<ModelResponseRest<Category>> response = categoryService.createCategory(category);
 		return response;
 	}
 	
 	@PutMapping("/categories/{id}")
-	public ResponseEntity<CategoryResponseRest> updateCategory(@RequestBody Category category, @PathVariable Long id) {
-		ResponseEntity<CategoryResponseRest> response = categoryService.updateCategory(category, id);
+	public ResponseEntity<ModelResponseRest<Category>> updateCategory(@RequestBody Category category, @PathVariable Long id) {
+		ResponseEntity<ModelResponseRest<Category>> response = categoryService.updateCategory(category, id);
 		return response;
 	}
 	
 	@DeleteMapping("/categories/{id}")
-	public ResponseEntity<CategoryResponseRest> deleteCategory(@PathVariable Long id) {
-		ResponseEntity<CategoryResponseRest> response = categoryService.deleteCategory(id);
+	public ResponseEntity<ModelResponseRest<Category>> deleteCategory(@PathVariable Long id) {
+		ResponseEntity<ModelResponseRest<Category>> response = categoryService.deleteCategory(id);
 		return response;
 	}
 	

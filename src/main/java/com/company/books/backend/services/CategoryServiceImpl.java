@@ -27,7 +27,7 @@ public class CategoryServiceImpl implements ICategoryService {
 	@Override
 	@Transactional(readOnly = true)
 	public ResponseEntity<CategoryResponseRest> searchCategory() {
-		log.info("Inicio de búsqueda de ctaegoria");
+		log.info("Starting category look up");
 		CategoryResponseRest response =  new CategoryResponseRest();
 		try {
 			List<Category> category = (List<Category>) categoryDao.findAll();
@@ -135,10 +135,10 @@ public class CategoryServiceImpl implements ICategoryService {
 	}
 
 	@Override
+	@Transactional
 	public ResponseEntity<CategoryResponseRest> deleteCategory(Long id) {
 		log.info("Deleting a category");
 		CategoryResponseRest response =  new CategoryResponseRest();
-		List<Category> list = new ArrayList<>();
 		try {
 			categoryDao.deleteById(id);
 			response.setMetadata("Response OK", "200", "Succesful elimination");

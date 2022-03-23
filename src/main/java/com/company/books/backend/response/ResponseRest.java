@@ -3,6 +3,12 @@ package com.company.books.backend.response;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * 
+ * @author Enrique Magdaleno
+ * This class is used for adding metada related to a response HTTP method
+ *
+ */
 public class ResponseRest {
 
 	private ArrayList<HashMap<String,String>> metadata =  new ArrayList<>();

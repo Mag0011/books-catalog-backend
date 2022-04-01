@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.company.books.backend.model.User;
 
-public interface IUsuarioDao extends CrudRepository<User, Long>{
+public interface IUserDao extends CrudRepository<User, Long>{
 
 	public User findByUserName(String userName);
 	@Query("SELECT u from User u where u.userName = ?1")

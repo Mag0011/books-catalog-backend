@@ -27,6 +27,7 @@ public class BookServiceImpl implements IBookService{
 	@Override
 	@Transactional(readOnly = true)
 	public ResponseEntity<ModelResponseRest<Book>> getAllBooks() {
+		
 		ModelResponseRest<Book> response =  new ModelResponseRest<>();
 		List<Book> listBooks = new ArrayList<Book>();
 		try {

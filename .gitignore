@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### files ###
+src/test/java/com/company/books/backend/examples/*

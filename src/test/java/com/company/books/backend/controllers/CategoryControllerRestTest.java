@@ -32,12 +32,12 @@ public class CategoryControllerRestTest {
 	@Mock
 	private ICategoryService categoryService;
 	
-	@InjectMocks
+	@InjectMocks // this annotation will inject all dependencies annotated with @Mock 
 	CategoryRestController categoryConroller;
 	
 	@BeforeEach
 	public void init() {
-		 MockitoAnnotations.openMocks(this);
+		 MockitoAnnotations.openMocks(this); // initialize declared mocks
 	}
 	
 	
